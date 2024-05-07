@@ -149,18 +149,18 @@ inline std::vector<std::string> split(const std::string& input, const char delim
  */
 inline std::string split_get_index(const std::string& input, const std::string& delimiter, int index) {
   unsigned occ = count_substring(input, delimiter) + 1;
-  index = index < 0 ? static_cast<int>(occ + index) : index;
-  if (occ <= index) {
+  unsigned real_index = index < 0 ? static_cast<int>(occ + index) : index;
+  if (occ <= real_index) {
     return "";
   }
 
   std::string::size_type start_index = 0;
   while (true) {
-    if (index == 0) {
+    if (real_index == 0) {
       break;
     }
     start_index = input.find(delimiter, start_index) + delimiter.size();
-    index--;
+    real_index--;
   }
   std::string::size_type end_index = input.find(delimiter, start_index);
   if (end_index == std::string::npos) {
